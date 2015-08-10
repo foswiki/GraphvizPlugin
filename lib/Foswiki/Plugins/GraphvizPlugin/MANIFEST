@@ -1,0 +1,7 @@
+data/System/GraphvizPlugin.txt 0644
+lib/Foswiki/Plugins/GraphvizPlugin/Config.spec 0644
+lib/Foswiki/Plugins/GraphvizPlugin/Core.pm 0644
+lib/Foswiki/Plugins/GraphvizPlugin/DEPENDENCIES 0644
+lib/Foswiki/Plugins/GraphvizPlugin.pm 0644
+pub/System/GraphvizPlugin/hello_world.png 0644
+pub/System/GraphvizPlugin/softmaint.txt 0644

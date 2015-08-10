@@ -1,0 +1,160 @@
+%META:TOPICINFO{author="ProjectContributor" comment="" date="1439247692" format="1.1"  version="1"}%
+---+!! %TOPIC%
+%SHORTDESCRIPTION%
+
+%TOC%
+
+!GraphViz is a way of representing structural information as diagrams
+of abstract graphs and networks. Automatic graph drawing has many important
+applications in software engineering, database and web design, networking, and
+in visual interfaces for many other domains.
+
+This plugin uses [[http://www.graphviz.org/][Graphviz's]] applications to
+create an image of a directed graph. The directed graph is described using a
+simple text markup called "The _dot_ Language". This markup is written between
+=&lt;graphviz>= and =&lt;/graphviz>= tags or using the =%GRAPHVIZ= macro.
+By default, an svg image attachment is created and displayed inline, replacing the =&lt;graphviz>= markup. 
+
+Visit the [[http://www.graphviz.org/Gallery.php][Graphviz gallery]] to see some
+examples on what can be achieved with this plugin and Graphviz. 
+
+Full documentation is available at http://graphviz.org/Documentation.php.
+
+---++ Usage
+
+There are two ways to specify a graph:
+
+   1 using the =&lt;graphviz>= xml tag
+   2 using the =%GRAPHVIZ= Foswiki macro
+
+Both can be used to generate a graph inline, that is by specifying the =graphviz= code as part of the page. Below 
+examples are mostly equivalent:
+
+<verbatim class="xml">
+<graphviz renderer="dot" type="png">
+digraph G {Hello->World}
+</graphviz>
+</verbatim>
+
+<verbatim class="tml">
+%GRAPHVIZ{
+   "digraph G {Hello->World}" 
+   renderer="dot"
+   type="png"
+}%
+</verbatim>
+
+Both should render as 
+
+%IF{"context GraphvizPluginEnabled"
+   then="$percntGRAPHVIZ{
+            \"digraph G {Hello->World}\" 
+            renderer=\"dot\"
+         type=\"png\"
+         }$percnt"
+   else="<img src='%ATTACHURLPATH%/hello_world.png" />"
+}%
+
+when installed.
+
+The =&lt;graphviz>= xml syntax has got the advantage of being in line with other wikis, such as dokuwiki. Also,
+the =graphviz= code does not have to escape any double-quotes (="=) as is the case using the Foswiki macro way.
+However using a proper =%GRAPHVIZ= macro has got the advantage of being well integrated into Foswiki's Topic Markup Language.
+For instance it can be properly escaped when in a [[FormattedSearch]].
+
+For compatibility with !DirectedGraphPlugin you may use =&lt;dot>= instead of =&lt;graphviz>=.
+
+---++ Syntax
+
+=&lt;graphviz [params]> ... graphviz code ... &lt;graphviz>=
+
+=%<nop>GRAPHVIZ{" ... graphviz code ... " [params]}%=
+
+| *Parameter* | *Description* | *Default* |
+| =graphviz code= | this is the graph specified in the graph description language | |
+| =type="png&#124;jpeg&#124;gif&#124;svg&#124;svgz&#124;pdf"= | output format | svg |
+| =renderer="dot&#124;neato&#124;twopi&#124;circle&#124;fdp&#124;sfdp&#124;patchwork"= | rendering engine | dot |
+| =topic="[web.]topic"= | specify the topic where to store the graph image | current topic |
+| =attachment=" ... "= | attachment that may hold a =.gv= graph file (only available in =%GRAPHVIZ=)  | |
+| =section=" ... "= | named section in =topic= that holds a graph description (only available in =%GRAPHVIZ=) | |
+| =library="[web.]topic"= | specify the topic where to search for images to be used in the dot graph | =topic= |
+| =inline="on&#124;off"= | boolean flag to specify the way how to add an svg result to the html page; if =inline="on"= then an =&lt;svg>= html tag is generated; otherwise an html =&lt;img ... >= tag is used; note that for properly linking URLs in the =graphviz= graph you will need to switch this on | off |
+| =expand="on&#124;off"= | boolean flag, when switched on, will expand TML macros in the graphviz code before rendering it | off |
+| =style=" ... "= | css styles to be added to the output | |
+| =width=" ... "= | width of the image result | |
+| =height=" ... "= | height of the image result | | 
+
+---++ Examples
+
+---+++ Example 1
+%GRAPHVIZ{
+  section="example1" 
+  main_init_label="high priority" 
+  main_printf_label="low priority"
+}%
+
+%TWISTY{showlink="show code" hidelink="hidecode"}%
+<verbatim>
+%STARTSECTION{"example1"}%
+digraph G {
+ node [fontname=Verdana,
+       fontsize=12,
+       style=filled,
+       fillcolor="#EEEEEE",
+       color="#EEEEEE"]
+
+ edge [fontname=Verdana,
+       fontsize=10,
+       color="#31CEF0"]
+
+ main [shape=box, color=deeppink]
+ init [shape=box, color=deeppink]
+
+ main -> parse -> execute [weight=8]
+
+ main -> init [taillabel="%main_init_label{default=""}%",
+               labelangle=-20,
+               labeldistance=7,
+               color=deeppink, 
+               arrowhead=vee, 
+               arrowtail=vee]
+
+ main -> cleanup
+ main -> printf [taillabel="%main_printf_label{default=""}%",
+               labelangle=15,
+               labeldistance=7]
+
+ execute -> make_string
+ execute -> printf 
+ init -> make_string
+ execute -> compare
+}
+%STOPSECTION{"example1"}%
+</verbatim>
+%ENDTWISTY%
+
+---+++ Example 2
+%GRAPHVIZ{attachment="softmaint.txt" renderer="neato" style="width:99%;height:auto"}%
+
+---++ Installation Instructions
+
+%$INSTALL_INSTRUCTIONS%
+
+---++ Info
+<!--
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
+
+|  Author(s): | Michael Daum|
+|  Copyright: | &copy; 2015 Michael Daum http://michaeldaumconsulting.com |
+|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  10 Aug 2015: | initial rewrite of !DirectedGraphPlugin |
+|  Dependencies: | %$DEPENDENCIES% |
+|  Home page: | Foswiki:Extensions/%TOPIC% |
+|  Support: | Foswiki:Support/%TOPIC% |
+
+%META:FILEATTACHMENT{name="hello_world.png" attachment="hello_world.png" attr="" comment="" date="1439247692" size="6201" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="softmaint.txt" attachment="softmaint.gv" attr="h" comment="" date="1439247692" moveby="micha" movedto="System.GraphvizPlugin.softmaint.txt" movedwhen="1439247180" movefrom="System.GraphvizPlugin.softmaint.gv" size="14946" user="ProjectContributor" version="1"}%
