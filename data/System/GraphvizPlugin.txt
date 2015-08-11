@@ -191,6 +191,7 @@ digraph G {
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  11 Aug 2015: | release of first beta |
 |  10 Aug 2015: | initial rewrite of !DirectedGraphPlugin |
 |  Dependencies: | %$DEPENDENCIES% |
 |  Home page: | Foswiki:Extensions/%TOPIC% |

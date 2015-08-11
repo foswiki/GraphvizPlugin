@@ -23,7 +23,7 @@ use Foswiki::Plugins ();
 use Foswiki::Attrs ();
 use Foswiki::Plugins::WysiwygPlugin ();
 
-our $VERSION = '0.02';
+our $VERSION = '0.10';
 our $RELEASE = '11 Aug 2015';
 our $SHORTDESCRIPTION = 'Draw graphs using the !GraphViz utility';
 our $NO_PREFS_IN_TOPIC = 1;
