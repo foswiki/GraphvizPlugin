@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" comment="" date="1439247692" format="1.1"  version="1"}%
+%META:TOPICINFO{author="ProjectContributor" comment="" date="1439299038" format="1.1"  version="1"}%
 ---+!! %TOPIC%
 %SHORTDESCRIPTION%
 
@@ -11,7 +11,7 @@ in visual interfaces for many other domains.
 
 This plugin uses [[http://www.graphviz.org/][Graphviz's]] applications to
 create an image of a directed graph. The directed graph is described using a
-simple text markup called "The _dot_ Language". This markup is written between
+simple text markup called "The DOT Language". This markup is written between
 =&lt;graphviz>= and =&lt;/graphviz>= tags or using the =%GRAPHVIZ= macro.
 By default, an svg image attachment is created and displayed inline, replacing the =&lt;graphviz>= markup. 
 
@@ -27,18 +27,18 @@ There are two ways to specify a graph:
    1 using the =&lt;graphviz>= xml tag
    2 using the =%GRAPHVIZ= Foswiki macro
 
-Both can be used to generate a graph inline, that is by specifying the =graphviz= code as part of the page. Below 
+Both can be used to generate a graph inline, that is by specifying the DOT language as part of the page. Below 
 examples are mostly equivalent:
 
 <verbatim class="xml">
 <graphviz renderer="dot" type="png">
-digraph G {Hello->World}
+digraph G {Hello[fontcolor="red"]; Hello->World}
 </graphviz>
 </verbatim>
 
 <verbatim class="tml">
 %GRAPHVIZ{
-   "digraph G {Hello->World}" 
+   "digraph G {Hello[fontcolor=\"red\"]; Hello->World}" 
    renderer="dot"
    type="png"
 }%
@@ -48,7 +48,7 @@ Both should render as
 
 %IF{"context GraphvizPluginEnabled"
    then="$percntGRAPHVIZ{
-            \"digraph G {Hello->World}\" 
+            \"digraph G {Hello[fontcolor=\"red\"]; Hello->World}\" 
             renderer=\"dot\"
          type=\"png\"
          }$percnt"
@@ -58,7 +58,7 @@ Both should render as
 when installed.
 
 The =&lt;graphviz>= xml syntax has got the advantage of being in line with other wikis, such as dokuwiki. Also,
-the =graphviz= code does not have to escape any double-quotes (="=) as is the case using the Foswiki macro way.
+the DOT code does not have to escape any double-quotes (="=) as is the case using the Foswiki macro way.
 However using a proper =%GRAPHVIZ= macro has got the advantage of being well integrated into Foswiki's Topic Markup Language.
 For instance it can be properly escaped when in a [[FormattedSearch]].
 
@@ -66,12 +66,12 @@ For compatibility with !DirectedGraphPlugin you may use =&lt;dot>= instead of =&
 
 ---++ Syntax
 
-=&lt;graphviz [params]> ... graphviz code ... &lt;graphviz>=
+=&lt;graphviz [params]> ... DOT code ... &lt;graphviz>=
 
-=%<nop>GRAPHVIZ{" ... graphviz code ... " [params]}%=
+=%<nop>GRAPHVIZ{" ... DOT code ... " [params]}%=
 
 | *Parameter* | *Description* | *Default* |
-| =graphviz code= | this is the graph specified in the graph description language | |
+| =DOT code= | this is the graph specified in the graph description language | |
 | =type="png&#124;jpeg&#124;gif&#124;svg&#124;svgz&#124;pdf"= | output format | svg |
 | =renderer="dot&#124;neato&#124;twopi&#124;circle&#124;fdp&#124;sfdp&#124;patchwork"= | rendering engine | dot |
 | =topic="[web.]topic"= | specify the topic where to store the graph image | current topic |
@@ -79,10 +79,50 @@ For compatibility with !DirectedGraphPlugin you may use =&lt;dot>= instead of =&
 | =section=" ... "= | named section in =topic= that holds a graph description (only available in =%GRAPHVIZ=) | |
 | =library="[web.]topic"= | specify the topic where to search for images to be used in the dot graph | =topic= |
 | =inline="on&#124;off"= | boolean flag to specify the way how to add an svg result to the html page; if =inline="on"= then an =&lt;svg>= html tag is generated; otherwise an html =&lt;img ... >= tag is used; note that for properly linking URLs in the =graphviz= graph you will need to switch this on | off |
-| =expand="on&#124;off"= | boolean flag, when switched on, will expand TML macros in the graphviz code before rendering it | off |
+| =expand="on&#124;off"= | boolean flag, when switched on, will expand TML macros in the DOT code before rendering it | off |
 | =style=" ... "= | css styles to be added to the output | |
 | =width=" ... "= | width of the image result | |
 | =height=" ... "= | height of the image result | | 
+
+---++ Graphviz from Table 
+
+Instead of having to learn the dot language, nodes and edges can also be specified in Foswiki tables:
+
+| *Node* | *Attributes* |
+| hello | color="red" |
+| world | shape=box |
+
+| *Source* | *Label* | *Target* | *Attributes* |
+| hello | | world | |
+
+Given these two tables where the only two tables in a topic then this would render the appropriate graph:
+
+<verbatim class="tml">
+%GRAPHVIZ{
+   topic="SomeTopic"
+
+   nodestable="0" 
+   nodecol="0"
+   nodeattrcol="1"
+
+   edgestable="1"
+   sourcecol="0"
+   labelcol="1"
+   targetcol="2"
+   edgeattrcol="3"
+}%
+</verbatim>
+
+| *Parameter* | *Description* | *Default* |
+| =table="int"= / =edgestable="int"=| index of table in =topic= to extract edges from | |
+| =nodestable="int"= | index of table in =topic= to extract nodes from | |
+| =nodecol="int"= | index of column that holds the node name | 0 |
+| =nodeattrcol="int"= | index of colum that holds node attributs |
+| =sourcecol="int"= | index of the colum holding the source node name | 0 |
+| =targetcol="int"= | index of the colum holding the target node name | 1 |
+| =labelcol="int"= | index of column holding the edge label | |
+| =edgeattrcol="int"= | index of column holding the edge attributes |
+| =preamble= | some dot code to be added before the generated node and edge code | |
 
 ---++ Examples
 
@@ -156,5 +196,5 @@ digraph G {
 |  Home page: | Foswiki:Extensions/%TOPIC% |
 |  Support: | Foswiki:Support/%TOPIC% |
 
-%META:FILEATTACHMENT{name="hello_world.png" attachment="hello_world.png" attr="" comment="" date="1439247692" size="6201" user="ProjectContributor" version="1"}%
-%META:FILEATTACHMENT{name="softmaint.txt" attachment="softmaint.gv" attr="h" comment="" date="1439247692" moveby="micha" movedto="System.GraphvizPlugin.softmaint.txt" movedwhen="1439247180" movefrom="System.GraphvizPlugin.softmaint.gv" size="14946" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="hello_world.png" attachment="hello_world.png" attr="" comment="" date="1439299038" size="6201" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="softmaint.txt" attachment="softmaint.gv" attr="h" comment="" date="1439299038" moveby="micha" movedto="System.GraphvizPlugin.softmaint.txt" movedwhen="1439247180" movefrom="System.GraphvizPlugin.softmaint.gv" size="14946" user="ProjectContributor" version="1"}%

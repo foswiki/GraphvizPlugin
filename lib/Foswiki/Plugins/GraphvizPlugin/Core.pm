@@ -58,10 +58,23 @@ sub GRAPHVIZ {
   my $text = "";
   my $attachment = $params->{attachment};
   my $section = $params->{section};
+  my $nodeTable = $params->{nodestable};
+  my $edgeTable = $params->{edgestable} || $params->{table};
+  my $doGraphFromTable = (defined $nodeTable || defined $edgeTable);
+  my $parser;
+
+  if ($doGraphFromTable) {
+    require Foswiki::Plugins::GraphvizPlugin::TableParser;
+    $parser = Foswiki::Plugins::GraphvizPlugin::TableParser->new();
+    my ($meta) = Foswiki::Func::readTopic($theWeb, $theTopic);
+    $parser->parse($meta->text, $meta);
+    $text = "digraph $theTopic {\n";
+    $text .= "\n".($params->{preamble} || '')."\n";
+  }
 
   # .... read attachment
   if (defined $attachment) {
-    return _inlineError("attachment '$attachment' not found at $theWeb.$theTopic")
+    return _inlineError("Error: attachment '$attachment' not found at $theWeb.$theTopic")
       unless Foswiki::Func::attachmentExists($theWeb, $theTopic, $attachment);
     $text = Foswiki::Func::readAttachment($theWeb, $theTopic, $attachment);
   } 
@@ -75,8 +88,14 @@ sub GRAPHVIZ {
       $thisParams->{$key} = $val;
     }
     $thisParams->{_DEFAULT} = "$theWeb.$theTopic";
-    my ($obj) = Foswiki::Func::readTopic($web, $topic);
-    $text = $session->INCLUDE($thisParams, $obj)
+    my ($meta) = Foswiki::Func::readTopic($web, $topic);
+    $text = $session->INCLUDE($thisParams, $meta)
+  }
+
+  # ... from table
+  elsif (defined $nodeTable || defined $edgeTable) {
+    $text .= $parser->getNodes($nodeTable, $params) if defined $nodeTable;
+    $text .= $parser->getEdges($edgeTable, $params) if defined $edgeTable;
   }
 
   # ... from text param
@@ -84,18 +103,24 @@ sub GRAPHVIZ {
     $text = $params->remove("_DEFAULT") || $params->remove("text");
   }
 
+  if ($doGraphFromTable) {
+    $text .= "}";
+  }
+
   # expand
   $text = Foswiki::Func::expandCommonVariables($text) 
     if Foswiki::Func::isTrue($params->{expand}, 0);
 
+  return _inlineError("Error: no dot code") unless defined $text;
+
   $text = Encode::encode_utf8($text);
 
   my $type = $params->{type} || "svg";
-  return _inlineError("unknown type '$type'")
+  return _inlineError("Error: unknown type '$type'")
     unless $type =~ /^(svgz?|png|gif|jpe?g|pdf)$/;
 
   my $renderer = $params->{renderer} || $params->{engine} || "dot";
-  return _inlineError("unknown renderer '$renderer'")
+  return _inlineError("Error: unknown renderer '$renderer'")
     unless $renderer =~ /^(dot|neato|twopi|circle|s?fdp|patchwork)$/;
 
   my $library = $params->{library};
