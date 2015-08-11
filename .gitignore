@@ -1,3 +1,11 @@
 *,v
 graphviz_*
 igp_*
+*.swp
+GraphvizPlugin.md5
+GraphvizPlugin.sha1
+GraphvizPlugin.tgz
+GraphvizPlugin.txt
+GraphvizPlugin.zip
+GraphvizPlugin_installer
+GraphvizPlugin_installer.pl
