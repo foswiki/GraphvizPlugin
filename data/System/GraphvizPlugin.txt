@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" comment="" date="1439299038" format="1.1"  version="1"}%
+%META:TOPICINFO{author="ProjectContributor" comment="" date="1439299703" format="1.1" version="1"}%
 ---+!! %TOPIC%
 %SHORTDESCRIPTION%
 
@@ -52,7 +52,7 @@ Both should render as
             renderer=\"dot\"
          type=\"png\"
          }$percnt"
-   else="<img src='%ATTACHURLPATH%/hello_world.png" />"
+   else="<img src='%ATTACHURLPATH%/hello_world.png' />"
 }%
 
 when installed.
@@ -117,11 +117,11 @@ Given these two tables where the only two tables in a topic then this would rend
 | =table="int"= / =edgestable="int"=| index of table in =topic= to extract edges from | |
 | =nodestable="int"= | index of table in =topic= to extract nodes from | |
 | =nodecol="int"= | index of column that holds the node name | 0 |
-| =nodeattrcol="int"= | index of colum that holds node attributs |
+| =nodeattrcol="int"= | index of colum that holds node attributs | |
 | =sourcecol="int"= | index of the colum holding the source node name | 0 |
 | =targetcol="int"= | index of the colum holding the target node name | 1 |
 | =labelcol="int"= | index of column holding the edge label | |
-| =edgeattrcol="int"= | index of column holding the edge attributes |
+| =edgeattrcol="int"= | index of column holding the edge attributes | |
 | =preamble= | some dot code to be added before the generated node and edge code | |
 
 ---++ Examples
@@ -197,5 +197,5 @@ digraph G {
 |  Home page: | Foswiki:Extensions/%TOPIC% |
 |  Support: | Foswiki:Support/%TOPIC% |
 
-%META:FILEATTACHMENT{name="hello_world.png" attachment="hello_world.png" attr="" comment="" date="1439299038" size="6201" user="ProjectContributor" version="1"}%
-%META:FILEATTACHMENT{name="softmaint.txt" attachment="softmaint.gv" attr="h" comment="" date="1439299038" moveby="micha" movedto="System.GraphvizPlugin.softmaint.txt" movedwhen="1439247180" movefrom="System.GraphvizPlugin.softmaint.gv" size="14946" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="hello_world.png" attachment="hello_world.png" attr="" comment="" date="1439299703" size="6201" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="softmaint.txt" attachment="softmaint.gv" attr="h" comment="" date="1439299703" moveby="micha" movedto="System.GraphvizPlugin.softmaint.txt" movedwhen="1439247180" movefrom="System.GraphvizPlugin.softmaint.gv" size="14946" user="ProjectContributor" version="1"}%
