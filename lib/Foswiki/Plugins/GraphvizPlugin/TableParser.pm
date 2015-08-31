@@ -19,7 +19,6 @@ use strict;
 use warnings;
 
 use Foswiki::Tables::Reader ();
-use Data::Dump qw(dump);
 our @ISA = ('Foswiki::Tables::Reader');
 
 sub parse {

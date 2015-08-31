@@ -122,7 +122,7 @@ Given these two tables where the only two tables in a topic then this would rend
 | =targetcol="int"= | index of the colum holding the target node name | 1 |
 | =labelcol="int"= | index of column holding the edge label | |
 | =edgeattrcol="int"= | index of column holding the edge attributes | |
-| =preamble= | some dot code to be added before the generated node and edge code | |
+| =preamble=" ... "= | some dot code to be added before the generated node and edge code | |
 
 ---++ Examples
 
@@ -191,6 +191,7 @@ digraph G {
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  31 Aug 2015: | first final release |
 |  11 Aug 2015: | release of first beta |
 |  10 Aug 2015: | initial rewrite of !DirectedGraphPlugin |
 |  Dependencies: | %$DEPENDENCIES% |
