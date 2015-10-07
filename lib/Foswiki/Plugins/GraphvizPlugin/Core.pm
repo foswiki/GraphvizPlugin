@@ -158,7 +158,6 @@ sub GRAPHVIZ {
 
     print $dotFH $text;
 
-
     ($output, $exit, $error) = Foswiki::Sandbox->sysCommand(
       $this->{dotCmd},
       TYPE => $type, 
@@ -185,7 +184,7 @@ sub GRAPHVIZ {
     my $height = $params->{height};
 
     if ($type eq 'svg' && $doInline) {
-      my $svg = Foswiki::Func::readFile($outfilePath);
+      my $svg = Foswiki::Func::readFile($outfilePath, 1);
       $svg =~ s/<\?xml .*?>/<!-- -->/g;
       $svg =~ s/<!DOCTYPE.*dtd">/<!-- -->/gs;
       $result = $this->{svgFormat};

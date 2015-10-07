@@ -1,6 +1,6 @@
-%META:TOPICINFO{author="ProjectContributor" comment="" date="1439299703" format="1.1" version="1"}%
+%META:TOPICINFO{author="ProjectContributor" date="1444221023" format="1.1" version="1"}%
 ---+!! %TOPIC%
-%SHORTDESCRIPTION%
+%FORMFIELD{"Description"}%
 
 %TOC%
 
@@ -177,26 +177,27 @@ digraph G {
 %GRAPHVIZ{attachment="softmaint.txt" renderer="neato" style="width:99%;height:auto"}%
 
 ---++ Installation Instructions
-
 %$INSTALL_INSTRUCTIONS%
 
----++ Info
-<!--
-   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
--->
+---++ Dependencies
+%$DEPENDENCIES%
 
-|  Author(s): | Michael Daum|
-|  Copyright: | &copy; 2015 Michael Daum http://michaeldaumconsulting.com |
-|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
-|  Release: | %$RELEASE% |
-|  Version: | %$VERSION% |
-|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+---++ Change History
+|  07 Oct 2015: | compatibility with foswiki >= 2.0.2 |
 |  31 Aug 2015: | first final release |
 |  11 Aug 2015: | release of first beta |
 |  10 Aug 2015: | initial rewrite of !DirectedGraphPlugin |
-|  Dependencies: | %$DEPENDENCIES% |
-|  Home page: | Foswiki:Extensions/%TOPIC% |
-|  Support: | Foswiki:Support/%TOPIC% |
 
-%META:FILEATTACHMENT{name="hello_world.png" attachment="hello_world.png" attr="" comment="" date="1439299703" size="6201" user="ProjectContributor" version="1"}%
-%META:FILEATTACHMENT{name="softmaint.txt" attachment="softmaint.gv" attr="h" comment="" date="1439299703" moveby="micha" movedto="System.GraphvizPlugin.softmaint.txt" movedwhen="1439247180" movefrom="System.GraphvizPlugin.softmaint.gv" size="14946" user="ProjectContributor" version="1"}%
+
+%META:FILEATTACHMENT{name="hello_world.png" attr="h" comment="" date="1444221029" size="6201" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="softmaint.txt" attr="h" comment="" date="1444221029" size="14946" user="ProjectContributor" version="1"}%
+%META:FORM{name="PackageForm"}%
+%META:FIELD{name="Author" title="Author" value="Michael Daum"}%
+%META:FIELD{name="Copyright" title="Copyright" value="&copy; 2015 Michael Daum http://michaeldaumconsulting.com"}%
+%META:FIELD{name="Description" title="Description" value="%25$SHORTDESCRIPTION%25"}%
+%META:FIELD{name="Home" title="Home" value="Foswiki:Extensions/%TOPIC%"}%
+%META:FIELD{name="License" title="License" value="[[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]]"}%
+%META:FIELD{name="Release" title="Release" value="%$RELEASE%"}%
+%META:FIELD{name="Repository" title="Repository" value="https://github.com/foswiki/%TOPIC%"}%
+%META:FIELD{name="Support" title="Support" value="Foswiki:Support/%TOPIC%"}%
+%META:FIELD{name="Version" title="Version" value="%$VERSION%"}%

@@ -23,13 +23,24 @@ use Foswiki::Plugins ();
 use Foswiki::Attrs ();
 use Foswiki::Plugins::WysiwygPlugin ();
 
-our $VERSION = '1.00';
-our $RELEASE = '31 Aug 2015';
+our $VERSION = '1.01';
+our $RELEASE = '07 Oct 2015';
 our $SHORTDESCRIPTION = 'Draw graphs using the !GraphViz utility';
 our $NO_PREFS_IN_TOPIC = 1;
 our $core;
 
-sub core {
+sub initPlugin {
+
+  Foswiki::Func::registerTagHandler('GRAPHVIZ', sub { return getCore()->GRAPHVIZ(@_); });
+
+  Foswiki::Plugins::WysiwygPlugin::addXMLTag('dot', sub { 1 });
+  Foswiki::Plugins::WysiwygPlugin::addXMLTag('graphviz', sub { 1 });
+
+  return 1;
+}
+
+sub getCore {
+
   unless (defined $core) {
     require Foswiki::Plugins::GraphvizPlugin::Core;
     $core = new Foswiki::Plugins::GraphvizPlugin::Core();
@@ -37,15 +48,6 @@ sub core {
   return $core;
 }
 
-sub initPlugin {
-
-  Foswiki::Func::registerTagHandler('GRAPHVIZ', sub { return core->GRAPHVIZ(@_); });
-
-  Foswiki::Plugins::WysiwygPlugin::addXMLTag('dot', sub { 1 });
-  Foswiki::Plugins::WysiwygPlugin::addXMLTag('graphviz', sub { 1 });
-
-  return 1;
-}
 
 sub commonTagsHandler {
   my $topic = $_[1];
@@ -63,11 +65,11 @@ sub _handleXML {
   $params->{_DEFAULT} = $code;
 
   my $session = $Foswiki::Plugins::SESSION;
-  return core->GRAPHVIZ($session, $params, $topic, $web);
+  return getCore()->GRAPHVIZ($session, $params, $topic, $web);
 }
 
 sub afterSaveHandler {
-  core->afterSaveHandler(@_);
+  getCore()->afterSaveHandler(@_);
 }
 
 sub finishPlugin {
