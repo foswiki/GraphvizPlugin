@@ -1,6 +1,6 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
-# GraphvizPlugin is Copyright (C) 2015 Michael Daum http://michaeldaumconsulting.com
+# GraphvizPlugin is Copyright (C) 2015-2016 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -87,7 +87,7 @@ sub GRAPHVIZ {
       next if $key =~ /^(_.*|attachment|type|renderer|engine|topic|library|inline|expand|style|width|height)$/;
       $thisParams->{$key} = $val;
     }
-    $thisParams->{_DEFAULT} = "$theWeb.$theTopic";
+    $thisParams->{_DEFAULT} = "$web.$topic";
     my ($meta) = Foswiki::Func::readTopic($web, $topic);
     $text = $session->INCLUDE($thisParams, $meta)
   }
@@ -113,6 +113,7 @@ sub GRAPHVIZ {
 
   return _inlineError("Error: no dot code") unless defined $text;
 
+  $text =~ s/^\s+|\s+$//g;
   $text = Encode::encode_utf8($text);
 
   my $type = $params->{type} || "svg";
@@ -173,7 +174,9 @@ sub GRAPHVIZ {
 
   if ($error) {
     $error =~ s/^Warning.*:/Warning:/g;
-    $result = _inlineError("<pre>$error</pre>");
+    my $line = 1;
+    $text =~ s/^/(sprintf "\%05d", $line++).": "/gmse;
+    $result = _inlineError("<pre>$error\n$text</pre>");
   } else {
     my $url = Foswiki::Func::getPubUrlPath()."/$theWeb/$theTopic/$outfile";
 

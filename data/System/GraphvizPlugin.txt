@@ -169,7 +169,7 @@ digraph G {
  init -> make_string
  execute -> compare
 }
-%STOPSECTION{"example1"}%
+%ENDSECTION{"example1"}%
 </verbatim>
 %ENDTWISTY%
 
@@ -183,6 +183,7 @@ digraph G {
 %$DEPENDENCIES%
 
 ---++ Change History
+|  02 Mar 2016: | fixed error on =dot= command format; improved error reporting |
 |  07 Oct 2015: | compatibility with foswiki >= 2.0.2 |
 |  31 Aug 2015: | first final release |
 |  11 Aug 2015: | release of first beta |
@@ -193,7 +194,7 @@ digraph G {
 %META:FILEATTACHMENT{name="softmaint.txt" attr="h" comment="" date="1444221029" size="14946" user="ProjectContributor" version="1"}%
 %META:FORM{name="PackageForm"}%
 %META:FIELD{name="Author" title="Author" value="Michael Daum"}%
-%META:FIELD{name="Copyright" title="Copyright" value="&copy; 2015 Michael Daum http://michaeldaumconsulting.com"}%
+%META:FIELD{name="Copyright" title="Copyright" value="&copy; 2016 Michael Daum http://michaeldaumconsulting.com"}%
 %META:FIELD{name="Description" title="Description" value="%25$SHORTDESCRIPTION%25"}%
 %META:FIELD{name="Home" title="Home" value="Foswiki:Extensions/%TOPIC%"}%
 %META:FIELD{name="License" title="License" value="[[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]]"}%
