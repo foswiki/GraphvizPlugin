@@ -38,7 +38,7 @@ sub new {
   my $this = bless({
     dotCmd => $Foswiki::cfg{GraphvizPlugin}{DotCmd} || '/usr/bin/dot -K%RENDERER|S% -T%TYPE|S% -o%OUTFILE|F% %INFILE|F%',
     imageFormat => $Foswiki::cfg{GraphvizPlugin}{ImageFormat} || '<noautolink><img src=\'$url\' class=\'graphviz\' $style$width$height/></noautolink>',
-    svgFormat => $Foswiki::cfg{GraphvizPlugin}{ImageFormat} || '<noautolink><literal>$svg</literal></noautolink>',
+    svgFormat => $Foswiki::cfg{GraphvizPlugin}{SvgFormat} || '<noautolink><literal>$svg</literal></noautolink>',
     @_
   }, $class);
 
@@ -89,6 +89,7 @@ sub GRAPHVIZ {
     }
     $thisParams->{_DEFAULT} = "$web.$topic";
     my ($meta) = Foswiki::Func::readTopic($web, $topic);
+    require Foswiki::Macros::INCLUDE;
     $text = $session->INCLUDE($thisParams, $meta)
   }
 
@@ -153,6 +154,7 @@ sub GRAPHVIZ {
       UNLINK => TRACE?0:1,
       SUFFIX => '.dot'
     );
+    binmode $dotFH;#, ':encoding(utf-8)';
 
     writeDebug("infile=".$dotFH->filename);
     writeDebug("outfile=".$outfilePath);
@@ -196,7 +198,6 @@ sub GRAPHVIZ {
       $result =~ s/width="[^"]*"/width="$width"/ if defined $width;
       $result =~ s/height="[^"]*"/height="$height"/ if defined $height;
       $result =~ s/<svg /<svg $style / if defined $style;
-
     } else {
       $result = $this->{imageFormat};
 

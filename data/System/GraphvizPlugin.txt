@@ -183,6 +183,7 @@ digraph G {
 %$DEPENDENCIES%
 
 ---++ Change History
+|  30 Nov 2016: | missing <nop>SvgFormat parameter; fixed encoding of created dot file | 
 |  02 Mar 2016: | fixed error on =dot= command format; improved error reporting |
 |  07 Oct 2015: | compatibility with foswiki >= 2.0.2 |
 |  31 Aug 2015: | first final release |
