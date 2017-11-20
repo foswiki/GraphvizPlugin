@@ -47,7 +47,7 @@ sub getNodes {
       $index++;
       next if $index == 1;# skip header
       my @attrs = ();
-      push @attrs, "$params->{nodeattrcol}]\"" if defined $params->{nodeattrcol};
+      push @attrs, "$row->[$params->{nodeattrcol}]" if defined $params->{nodeattrcol};
       my $attrs = '';
       $attrs = "[".join(", ", @attrs)."]" if @attrs;
       push @lines, "  \"$row->[$params->{nodecol}]\" $attrs";
@@ -77,7 +77,7 @@ sub getEdges {
       next if $index == 1;# skip header
       my @attrs = ();
       push @attrs, "xlabel=\"$row->[$params->{labelcol}]\"" if defined $params->{labelcol};
-      push @attrs, "$params->{edgeattrcol}]\"" if defined $params->{edgeattrcol};
+      push @attrs, "$row->[$params->{edgeattrcol}]" if defined $params->{edgeattrcol};
       my $attrs = '';
       $attrs = "[".join(", ", @attrs)."]" if @attrs;
       push @lines, "  \"$row->[$params->{sourcecol}]\" -> \"$row->[$params->{targetcol}]\" $attrs";
