@@ -183,6 +183,7 @@ digraph G {
 %$DEPENDENCIES%
 
 ---++ Change History
+%TABLE{columnwidths="7em" tablewidth="100%"}%
 |  20 Nov 2017: | fixed error in table parser (Foswiki:Main/BramVanOosterhout) |
 |  30 Nov 2016: | missing <nop>SvgFormat parameter; fixed encoding of created dot file | 
 |  02 Mar 2016: | fixed error on =dot= command format; improved error reporting |
