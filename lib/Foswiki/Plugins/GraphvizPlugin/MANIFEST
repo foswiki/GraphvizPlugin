@@ -1,3 +1,4 @@
+!noci
 data/System/GraphvizPlugin.txt 0644
 lib/Foswiki/Plugins/GraphvizPlugin/Config.spec 0644
 lib/Foswiki/Plugins/GraphvizPlugin/Core.pm 0644
