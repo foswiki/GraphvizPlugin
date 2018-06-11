@@ -1,6 +1,6 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
-# GraphvizPlugin is Copyright (C) 2015-2017 Michael Daum http://michaeldaumconsulting.com
+# GraphvizPlugin is Copyright (C) 2015-2018 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -23,8 +23,8 @@ use Foswiki::Plugins ();
 use Foswiki::Attrs ();
 use Foswiki::Plugins::WysiwygPlugin ();
 
-our $VERSION = '1.04';
-our $RELEASE = '20 Nov 2017';
+our $VERSION = '1.10';
+our $RELEASE = '11 Jun 2018';
 our $SHORTDESCRIPTION = 'Draw graphs using the !GraphViz utility';
 our $NO_PREFS_IN_TOPIC = 1;
 our $core;

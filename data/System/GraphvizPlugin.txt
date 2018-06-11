@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" date="1444221023" format="1.1" version="1"}%
+%META:TOPICINFO{author="ProjectContributor" date="1528718238" format="1.1" version="1"}%
 ---+!! %TOPIC%
 %FORMFIELD{"Description"}%
 
@@ -75,6 +75,7 @@ For compatibility with !DirectedGraphPlugin you may use =&lt;dot>= instead of =&
 | =type="png&#124;jpeg&#124;gif&#124;svg&#124;svgz&#124;pdf"= | output format | svg |
 | =renderer="dot&#124;neato&#124;twopi&#124;circle&#124;fdp&#124;sfdp&#124;patchwork"= | rendering engine | dot |
 | =topic="[web.]topic"= | specify the topic where to store the graph image | current topic |
+| =file="..."= | filename to be generated | random based on content |
 | =attachment=" ... "= | attachment that may hold a =.gv= graph file (only available in =%GRAPHVIZ=)  | |
 | =section=" ... "= | named section in =topic= that holds a graph description (only available in =%GRAPHVIZ=) | |
 | =library="[web.]topic"= | specify the topic where to search for images to be used in the dot graph | =topic= |
@@ -184,6 +185,7 @@ digraph G {
 
 ---++ Change History
 %TABLE{columnwidths="7em" tablewidth="100%"}%
+|  11 Jun 2018: | added =file= parameter to explicitly specify an output file |
 |  20 Nov 2017: | fixed error in table parser (Foswiki:Main/BramVanOosterhout) |
 |  30 Nov 2016: | missing <nop>SvgFormat parameter; fixed encoding of created dot file | 
 |  02 Mar 2016: | fixed error on =dot= command format; improved error reporting |
@@ -193,11 +195,11 @@ digraph G {
 |  10 Aug 2015: | initial rewrite of !DirectedGraphPlugin |
 
 
-%META:FILEATTACHMENT{name="hello_world.png" attr="h" comment="" date="1444221029" size="6201" user="ProjectContributor" version="1"}%
-%META:FILEATTACHMENT{name="softmaint.txt" attr="h" comment="" date="1444221029" size="14946" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="hello_world.png" attr="h" comment="" date="1528718238" size="6201" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="softmaint.txt" attr="h" comment="" date="1528718238" size="14946" user="ProjectContributor" version="1"}%
 %META:FORM{name="PackageForm"}%
 %META:FIELD{name="Author" title="Author" value="Michael Daum"}%
-%META:FIELD{name="Copyright" title="Copyright" value="&copy; 2015-2017 Michael Daum http://michaeldaumconsulting.com"}%
+%META:FIELD{name="Copyright" title="Copyright" value="&copy; 2015-2018 Michael Daum http://michaeldaumconsulting.com"}%
 %META:FIELD{name="Description" title="Description" value="%25$SHORTDESCRIPTION%25"}%
 %META:FIELD{name="Home" title="Home" value="Foswiki:Extensions/%TOPIC%"}%
 %META:FIELD{name="License" title="License" value="[[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]]"}%

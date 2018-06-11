@@ -1,6 +1,6 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
-# GraphvizPlugin is Copyright (C) 2015-2017 Michael Daum http://michaeldaumconsulting.com
+# GraphvizPlugin is Copyright (C) 2015-2018 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -136,9 +136,14 @@ sub GRAPHVIZ {
   my $pubDir = $Foswiki::cfg{PubDir}.'/'.$theWeb.'/'.$theTopic;
   File::Path::make_path($pubDir) unless -d $pubDir;
 
-  my $md5 = Digest::MD5::md5_hex($text, $params->stringify);
-  my $outfile = 'graphviz_'.$md5.".".$type;
-  my $outfilePath = $pubDir.'/'.$outfile;
+  my $outfile;
+  unless ($params->{file}) {
+    my $md5 = Digest::MD5::md5_hex($text, $params->stringify);
+    $outfile = 'graphviz_'.$md5.".".$type;
+  } else {
+    ($outfile) = Foswiki::Sandbox::sanitizeAttachmentName($params->{file}).".$type";
+  }
+  my  $outfilePath = $pubDir.'/'.$outfile;
 
   my $error;
   my $output;
