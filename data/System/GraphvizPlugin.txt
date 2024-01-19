@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" date="1528718238" format="1.1" version="1"}%
+%META:TOPICINFO{author="micha" date="1574158152" format="1.1" version="2"}%
 ---+!! %TOPIC%
 %FORMFIELD{"Description"}%
 
@@ -9,16 +9,16 @@ of abstract graphs and networks. Automatic graph drawing has many important
 applications in software engineering, database and web design, networking, and
 in visual interfaces for many other domains.
 
-This plugin uses [[http://www.graphviz.org/][Graphviz's]] applications to
+This plugin uses [[https://graphviz.org/][Graphviz's]] applications to
 create an image of a directed graph. The directed graph is described using a
 simple text markup called "The DOT Language". This markup is written between
 =&lt;graphviz>= and =&lt;/graphviz>= tags or using the =%GRAPHVIZ= macro.
 By default, an svg image attachment is created and displayed inline, replacing the =&lt;graphviz>= markup. 
 
-Visit the [[http://www.graphviz.org/Gallery.php][Graphviz gallery]] to see some
+Visit the [[https://graphviz.org/gallery/][Graphviz gallery]] to see some
 examples on what can be achieved with this plugin and Graphviz. 
 
-Full documentation is available at http://graphviz.org/Documentation.php.
+Full documentation is available at https://graphviz.org/documentation.
 
 ---++ Usage
 
@@ -195,15 +195,15 @@ digraph G {
 |  10 Aug 2015: | initial rewrite of !DirectedGraphPlugin |
 
 
-%META:FILEATTACHMENT{name="hello_world.png" attr="h" comment="" date="1528718238" size="6201" user="ProjectContributor" version="1"}%
-%META:FILEATTACHMENT{name="softmaint.txt" attr="h" comment="" date="1528718238" size="14946" user="ProjectContributor" version="1"}%
 %META:FORM{name="PackageForm"}%
 %META:FIELD{name="Author" title="Author" value="Michael Daum"}%
-%META:FIELD{name="Copyright" title="Copyright" value="&copy; 2015-2018 Michael Daum http://michaeldaumconsulting.com"}%
+%META:FIELD{name="Version" title="Version" value="%25$VERSION%25"}%
+%META:FIELD{name="Release" title="Release" value="%25$RELEASE%25"}%
 %META:FIELD{name="Description" title="Description" value="%25$SHORTDESCRIPTION%25"}%
-%META:FIELD{name="Home" title="Home" value="Foswiki:Extensions/%TOPIC%"}%
+%META:FIELD{name="Repository" title="Repository" value="https://github.com/foswiki/%25TOPIC%25"}%
+%META:FIELD{name="Copyright" title="Copyright" value="&copy; 2015-2024 Michael Daum"}%
 %META:FIELD{name="License" title="License" value="[[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]]"}%
-%META:FIELD{name="Release" title="Release" value="%$RELEASE%"}%
-%META:FIELD{name="Repository" title="Repository" value="https://github.com/foswiki/%TOPIC%"}%
-%META:FIELD{name="Support" title="Support" value="Foswiki:Support/%TOPIC%"}%
-%META:FIELD{name="Version" title="Version" value="%$VERSION%"}%
+%META:FIELD{name="Home" title="Home" value="Foswiki:Extensions/%25TOPIC%25"}%
+%META:FIELD{name="Support" title="Support" value="Foswiki:Support/%25TOPIC%25"}%
+%META:FILEATTACHMENT{name="hello_world.png" attr="h" comment="" date="1528718238" size="6201" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="softmaint.txt" attr="h" comment="" date="1528718238" size="14946" user="ProjectContributor" version="1"}%

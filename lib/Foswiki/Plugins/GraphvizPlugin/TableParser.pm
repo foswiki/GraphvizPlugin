@@ -1,6 +1,6 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
-# GraphvizPlugin is Copyright (C) 2015-2018 Michael Daum http://michaeldaumconsulting.com
+# GraphvizPlugin is Copyright (C) 2015-2024 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -50,6 +50,7 @@ sub getNodes {
       push @attrs, "$row->[$params->{nodeattrcol}]" if defined $params->{nodeattrcol};
       my $attrs = '';
       $attrs = "[".join(", ", @attrs)."]" if @attrs;
+      $attrs =~ s/\burl=/URL=/g;
       push @lines, "  \"$row->[$params->{nodecol}]\" $attrs";
     }
   }
@@ -94,4 +95,3 @@ sub line {
 }
 
 1;
-

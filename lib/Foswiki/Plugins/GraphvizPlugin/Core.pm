@@ -1,6 +1,6 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
-# GraphvizPlugin is Copyright (C) 2015-2018 Michael Daum http://michaeldaumconsulting.com
+# GraphvizPlugin is Copyright (C) 2015-2024 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -27,11 +27,6 @@ use Encode ();
 
 use constant TRACE => 0; # toggle me
 
-sub writeDebug {
-  #Foswiki::Func::writeDebug("GraphvizPlugin::Core - $_[0]") if TRACE;
-  print STDERR "GraphvizPlugin::Core - $_[0]\n" if TRACE;
-}
-
 sub new {
   my $class = shift;
 
@@ -48,7 +43,7 @@ sub new {
 sub GRAPHVIZ {
   my ($this, $session, $params, $topic, $web) = @_;
 
-  writeDebug("called GRAPHVIZ()");
+  _writeDebug("called GRAPHVIZ()");
 
   my $query = Foswiki::Func::getRequestObject();
   my $refresh = $query->param("refresh") || '';
@@ -128,8 +123,8 @@ sub GRAPHVIZ {
   my $library = $params->{library};
   my ($libraryWeb, $libraryTopic) = Foswiki::Func::normalizeWebTopicName($theWeb, $library||$theTopic);
   my $libraryPath = $Foswiki::cfg{PubDir}.'/'.$libraryWeb.'/'.$libraryTopic.'/';
-  writeDebug("libraryPath=$libraryPath");
-  $ENV{'GV_FILE_PATH'} = $libraryPath;
+  _writeDebug("libraryPath=$libraryPath");
+  $ENV{'GV_FILE_PATH'} = $libraryPath; 
 
   my $doInline = Foswiki::Func::isTrue($params->{inline}, 0);
 
@@ -151,9 +146,9 @@ sub GRAPHVIZ {
   my $result;
 
   if (-f $outfilePath && $refresh !~ /^(img|graphviz|dot|all)$/) {
-    writeDebug("$outfilePath already exists");
+    _writeDebug("$outfilePath already exists");
   } else {
-    writeDebug("generating $outfilePath");
+    _writeDebug("generating $outfilePath");
 
     my $dotFH = File::Temp->new(
       UNLINK => TRACE?0:1,
@@ -161,8 +156,8 @@ sub GRAPHVIZ {
     );
     binmode $dotFH;#, ':encoding(utf-8)';
 
-    writeDebug("infile=".$dotFH->filename);
-    writeDebug("outfile=".$outfilePath);
+    _writeDebug("infile=".$dotFH->filename);
+    _writeDebug("outfile=".$outfilePath);
 
     print $dotFH $text;
 
@@ -174,9 +169,9 @@ sub GRAPHVIZ {
       INFILE => $dotFH->filename,
     );
 
-    writeDebug("exit=".$exit);
-    writeDebug("output=$output");
-    writeDebug("error=$error");
+    _writeDebug("exit=".$exit);
+    _writeDebug("output=$output");
+    _writeDebug("error=$error");
   }
 
   if ($error) {
@@ -220,7 +215,7 @@ sub GRAPHVIZ {
     $result =~ s/\$url/$url/g;
   }
 
-  #writeDebug("result=$result");
+  #_writeDebug("result=$result");
 
   return $result;
 }
@@ -239,7 +234,7 @@ sub cleanUp {
   my @thumbs = grep { /^graphviz_[0-9a-f]{32}/ } readdir $dh;
   closedir $dh;
 
-  writeDebug("cleaning up @thumbs");
+  _writeDebug("cleaning up @thumbs");
 
   foreach my $file (@thumbs) {
     my $thumbPath = $web . '/' . $topic . '/' . $file;
@@ -252,5 +247,8 @@ sub _inlineError {
   return "<div class='foswikiAlert'>$_[0]</div>";
 }
 
+sub _writeDebug {
+  print STDERR "GraphvizPlugin::Core - $_[0]\n" if TRACE;
+}
 
 1;
