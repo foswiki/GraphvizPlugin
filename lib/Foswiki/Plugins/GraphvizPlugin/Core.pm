@@ -188,28 +188,25 @@ sub GRAPHVIZ {
     my $width = $params->{width};
     my $height = $params->{height};
 
-    if ($type eq 'svg' && $doInline) {
+    if  ($type eq 'svg') {
       my $svg = Foswiki::Func::readFile($outfilePath, 1);
-      $svg =~ s/<\?xml .*?>/<!-- -->/g;
-      $svg =~ s/<!DOCTYPE.*dtd">/<!-- -->/gs;
-      $result = $this->{svgFormat};
-
-      $result =~ s/\$svg/$svg/;
-      $result =~ s/width="[^"]*"/width="$width"/ if defined $width;
-      $result =~ s/height="[^"]*"/height="$height"/ if defined $height;
-      $result =~ s/<svg /<svg $style / if defined $style;
+      my $libraryPubPath = Foswiki::Func::getPubUrlPath( $libraryWeb, $libraryTopic );
+      $svg =~ s!xlink:href="!href="$libraryPubPath/!gs;
+      if ($doInline) {
+        $svg =~ s/<\?xml .*?>/<!-- -->/g;
+        $svg =~ s/<!DOCTYPE.*dtd">/<!-- -->/gs;
+        
+        $result = $this->{svgFormat};
+        $result =~ s/\$svg/$svg/;
+        $result =~ s/width="[^"]*"/width="$width"/ if defined $width;
+        $result =~ s/height="[^"]*"/height="$height"/ if defined $height;
+        $result =~ s/<svg /<svg $style / if defined $style;
+      } else {
+        Foswiki::Func::saveFile($outfilePath, $svg, 1);
+        $result = _updateFormat( $style, $width, $height, $this->{imageFormat} );
+      }
     } else {
-      $result = $this->{imageFormat};
-
-      $style ||= '';
-      $width ||= '';
-      $height ||= '';
-      $width = "width='".$width."'" if $width;
-      $height = "height='".$height."'" if $height;
-
-      $result =~ s/\$style/$style/g;
-      $result =~ s/\$width/$width/g;
-      $result =~ s/\$height/$height/g;
+      $result = _updateFormat( $style, $width, $height, $this->{imageFormat} );
     }
 
     $result =~ s/\$url/$url/g;
@@ -218,6 +215,20 @@ sub GRAPHVIZ {
   #_writeDebug("result=$result");
 
   return $result;
+}
+
+sub _updateFormat {
+  my ( $style, $width, $height, $format ) = @_;
+  
+  $style = $style ? "style='$style' " : '';
+  $width = $width ? "width='$width' " : '';
+  $height = $height ? "height='$height' " : '';
+  
+  $format =~ s/\$style/$style/g;
+  $format =~ s/\$width/$width/g;
+  $format =~ s/\$height/$height/g;
+  
+  return $format;
 }
 
 sub afterSaveHandler {
