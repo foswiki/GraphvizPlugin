@@ -1,6 +1,6 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
-# GraphvizPlugin is Copyright (C) 2015-2024 Michael Daum http://michaeldaumconsulting.com
+# GraphvizPlugin is Copyright (C) 2015-2025 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -15,6 +15,14 @@
 
 package Foswiki::Plugins::GraphvizPlugin;
 
+=begin TML
+
+---+ package Foswiki::Plugins::GraphvizPlugin
+
+plugin class to hook into the foswiki core
+
+=cut
+
 use strict;
 use warnings;
 
@@ -23,12 +31,20 @@ use Foswiki::Plugins ();
 use Foswiki::Attrs ();
 use Foswiki::Plugins::WysiwygPlugin ();
 
-our $VERSION = '1.11';
+our $VERSION = '1.12';
 our $RELEASE = '%$RELEASE%';
 our $SHORTDESCRIPTION = 'Draw graphs using the !GraphViz utility';
 our $LICENSECODE = '%$LICENSECODE%';
 our $NO_PREFS_IN_TOPIC = 1;
 our $core;
+
+=begin TML
+
+---++ initPlugin($topic, $web, $user) -> $boolean
+
+initialize the plugin, automatically called during the core initialization process
+
+=cut
 
 sub initPlugin {
 
@@ -40,6 +56,27 @@ sub initPlugin {
   return 1;
 }
 
+=begin TML
+
+---++ finishPlugin
+
+finish the plugin and the core if it has been used,
+automatically called during the core initialization process
+
+=cut
+
+sub finishPlugin {
+  undef $core;
+}
+
+=begin TML
+
+---++ getCore() -> $core
+
+returns a singleton core object for this plugin
+
+=cut
+
 sub getCore {
 
   unless (defined $core) {
@@ -50,11 +87,19 @@ sub getCore {
 }
 
 
+=begin TML
+
+---++ ObjectMethod commonTagsHandler() 
+
+process dot and graphviz markup
+
+=cut
+
 sub commonTagsHandler {
   my $topic = $_[1];
   my $web   = $_[2];
 
-  $_[0] =~ s/<(?:graphviz|dot)(.*?)>(.*?)<\/(?:graphviz|dot)>/_handleXML($web, $topic, $1, $2)/gise;
+  $_[0] =~ s/<(graphviz|dot)(.*?)>(.*?)<\/\1>/_handleXML($web, $topic, $2, $3)/gise;
 }
 
 sub _handleXML {
@@ -69,12 +114,14 @@ sub _handleXML {
   return getCore()->GRAPHVIZ($session, $params, $topic, $web);
 }
 
+=begin TML
+
+---++ ObjectMethod afterSaveHandler() 
+
+=cut
+
 sub afterSaveHandler {
   getCore()->afterSaveHandler(@_);
-}
-
-sub finishPlugin {
-  undef $core;
 }
 
 1;

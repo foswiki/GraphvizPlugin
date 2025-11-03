@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="micha" date="1574158152" format="1.1" version="2"}%
+%META:TOPICINFO{author="ProjectContributor" date="1762189077" format="1.1" version="1"}%
 ---+!! %TOPIC%
 %FORMFIELD{"Description"}%
 
@@ -185,6 +185,7 @@ digraph G {
 
 ---++ Change History
 %TABLE{columnwidths="7em" tablewidth="100%"}%
+|  03 Nov 2025: | docu updates; performance fixes |
 |  11 Jun 2018: | added =file= parameter to explicitly specify an output file |
 |  20 Nov 2017: | fixed error in table parser (Foswiki:Main/BramVanOosterhout) |
 |  30 Nov 2016: | missing <nop>SvgFormat parameter; fixed encoding of created dot file | 
@@ -201,9 +202,9 @@ digraph G {
 %META:FIELD{name="Release" title="Release" value="%25$RELEASE%25"}%
 %META:FIELD{name="Description" title="Description" value="%25$SHORTDESCRIPTION%25"}%
 %META:FIELD{name="Repository" title="Repository" value="https://github.com/foswiki/%25TOPIC%25"}%
-%META:FIELD{name="Copyright" title="Copyright" value="&copy; 2015-2024 Michael Daum"}%
+%META:FIELD{name="Copyright" title="Copyright" value="&copy; 2015-2025 Michael Daum"}%
 %META:FIELD{name="License" title="License" value="[[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]]"}%
 %META:FIELD{name="Home" title="Home" value="Foswiki:Extensions/%25TOPIC%25"}%
 %META:FIELD{name="Support" title="Support" value="Foswiki:Support/%25TOPIC%25"}%
-%META:FILEATTACHMENT{name="hello_world.png" attr="h" comment="" date="1528718238" size="6201" user="ProjectContributor" version="1"}%
-%META:FILEATTACHMENT{name="softmaint.txt" attr="h" comment="" date="1528718238" size="14946" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="hello_world.png" attr="h" comment="" date="1762189077" size="6201" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="softmaint.txt" attr="h" comment="" date="1762189077" size="14946" user="ProjectContributor" version="1"}%

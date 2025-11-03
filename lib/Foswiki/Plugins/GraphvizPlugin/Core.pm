@@ -1,6 +1,6 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
-# GraphvizPlugin is Copyright (C) 2015-2024 Michael Daum http://michaeldaumconsulting.com
+# GraphvizPlugin is Copyright (C) 2015-2025 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -90,6 +90,7 @@ sub GRAPHVIZ {
 
   # ... from table
   elsif (defined $nodeTable || defined $edgeTable) {
+    $text //= "";
     $text .= $parser->getNodes($nodeTable, $params) if defined $nodeTable;
     $text .= $parser->getEdges($edgeTable, $params) if defined $edgeTable;
   }
@@ -105,7 +106,7 @@ sub GRAPHVIZ {
 
   # expand
   $text = Foswiki::Func::expandCommonVariables($text) 
-    if Foswiki::Func::isTrue($params->{expand}, 0);
+    if $text =~ /%/ && Foswiki::Func::isTrue($params->{expand}, 0);
 
   return _inlineError("Error: no dot code") unless defined $text;
 
